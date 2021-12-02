@@ -1,12 +1,11 @@
-import _ from 'lodash';
 import './style.css';
-import '@fortawesome/fontawesome-free/js/fontawesome';
-import '@fortawesome/fontawesome-free/js/solid';
-import '@fortawesome/fontawesome-free/js/regular';
-import '@fortawesome/fontawesome-free/js/brands';
+import '@fortawesome/fontawesome-free/js/fontawesome.js';
+import '@fortawesome/fontawesome-free/js/solid.js';
+import '@fortawesome/fontawesome-free/js/regular.js';
+import '@fortawesome/fontawesome-free/js/brands.js';
 
 function component() {
-  let data = [
+  const data = [
     {
       index: 1,
       description: 'Buy a Laptop',
@@ -23,31 +22,22 @@ function component() {
       completed: false,
     },
   ];
+  const ul = document.getElementById('list');
 
-  // const task = document.querySelector('.task').innerHTML;
   let task = '';
 
   if (data.length === 0) {
-    return (document.querySelector('#task').innerHTML =
-      '<p>No Record Found</p>');
-  } else {
-    return data.map((e, i) => {
-      task += `<li class="task">
-          <input type="checkbox" id="task-${e.index}" />
+    document.querySelector('#task').innerHTML = '<p>No Record Found</p>';
+  }
+  data.map((e) => {
+    task += `<li class="task"><input type="checkbox" id="task-${e.index}" />
           <input type="text" value="${e.description}" />
           <span>
             <i class="fas fa-ellipsis-v"></i>
-          </span>
-        </li>`;
-      return (document.querySelector('#task').innerHTML = task);
-    });
-  }
-
-  //Lodash, now imported by this script
-
-  // element.innerHTML = _.join(['Hello', 'webpack'], ' ');
-
-  // return element;
+          </span></li>`;
+    return task;
+  });
+  ul.innerHTML = task;
 }
 
 document.body.appendChild(component());

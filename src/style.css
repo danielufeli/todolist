@@ -1,15 +1,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins');
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-family: 'Poppins', sans-serif;
 }
+
 body {
   height: 100vh;
   width: 100%;
   background: linear-gradient(to bottom, #68eacc 0%, #f6f6f6 100%);
 }
+
 .wrapper {
   margin: 120px auto;
   max-width: 500px;
@@ -19,6 +22,7 @@ body {
   box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
   overflow: hidden;
 }
+
 .wrapper header {
   font-size: 22px;
   color: #908e90;
@@ -32,7 +36,7 @@ body {
 
 .wrapper .inputField {
   display: flex;
-  height: 45;
+  height: 45px;
   width: 100%;
   padding: 15px;
   border-bottom: 2px solid #edebed;
@@ -45,6 +49,11 @@ body {
   font-size: 17px;
   color: #7d7b7d;
   font-style: italic;
+}
+
+.todoList li input {
+  border: none;
+  color: #434142;
 }
 
 .inputField input:focus {
@@ -66,18 +75,13 @@ body {
   padding: 0 20px;
 }
 
-.todoList li input {
-  border: none;
-  color: #434142;
-}
-
 .todoList li input:focus {
   outline: none;
 }
 
 .todoList li span {
   position: absolute;
-  right: 0px;
+  right: 0;
   margin-right: 15px;
   color: #cdcbcd;
 }
