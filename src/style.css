@@ -55,6 +55,7 @@ body {
 .todoList li input {
   border: none;
   color: #434142;
+  padding-left: 10px;
 }
 
 .inputField input:focus {
@@ -76,10 +77,6 @@ body {
   border-bottom: 2px solid #edebed;
   position: relative;
   padding: 0 20px;
-}
-
-.todoList li input {
-  padding-left: 10px;
 }
 
 .todoList li input:focus {
@@ -111,7 +108,7 @@ body {
   transition: all 0.3s ease;
 }
 
-.completed input[type=text] {
+.completed input[type='text'] {
   text-decoration: line-through;
   opacity: 0.5;
 }

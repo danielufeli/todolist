@@ -86,7 +86,7 @@ function component() {
     } else {
       todos = JSON.parse(localStorage.getItem('todos'));
     }
-    todos.map((todo, i) => {
+    todos.map((todo) => {
       const newTodo = document.createElement('li');
       newTodo.classList.add('task');
       if (todo.completed === true) newTodo.classList.add('completed');
