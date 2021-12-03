@@ -27,9 +27,15 @@ function component() {
   const todoButton = document.querySelector('.todo-button');
   const todoList = document.querySelector('.todoList');
 
-  document.addEventListener('DOMContentLoaded', getTodos);
-  todoButton.addEventListener('click', addTodo);
-  todoList.addEventListener('click', deleteCheck);
+  function saveLocalTodos(todo) {
+    if (localStorage.getItem('todos') === null) {
+      todos = [];
+    } else {
+      todos = JSON.parse(localStorage.getItem('todos'));
+    }
+    todos.push(todo);
+    localStorage.setItem('todos', JSON.stringify(todos));
+  }
 
   function addTodo(event) {
     event.preventDefault();
@@ -70,16 +76,6 @@ function component() {
     }
   }
 
-  function saveLocalTodos(todo) {
-    if (localStorage.getItem('todos') === null) {
-      todos = [];
-    } else {
-      todos = JSON.parse(localStorage.getItem('todos'));
-    }
-    todos.push(todo);
-    localStorage.setItem('todos', JSON.stringify(todos));
-  }
-
   function getTodos() {
     if (localStorage.getItem('todos') === null) {
       localStorage.setItem('todos', JSON.stringify(todos));
@@ -105,8 +101,13 @@ function component() {
       newTodo.appendChild(moveButton);
       todoList.appendChild(newTodo);
       todoInput.value = '';
+      return todo;
     });
   }
+
+  document.addEventListener('DOMContentLoaded', getTodos);
+  todoButton.addEventListener('click', addTodo);
+  todoList.addEventListener('click', deleteCheck);
 }
 
 document.body.appendChild(component());
