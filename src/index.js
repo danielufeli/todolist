@@ -3,9 +3,10 @@ import '@fortawesome/fontawesome-free/js/fontawesome.js';
 import '@fortawesome/fontawesome-free/js/solid.js';
 import '@fortawesome/fontawesome-free/js/regular.js';
 import '@fortawesome/fontawesome-free/js/brands.js';
+import statusUpdate from './updateTodos.js';
 
 function component() {
-  const data = [
+  let todos = [
     {
       index: 1,
       description: 'Buy a Laptop',
@@ -22,22 +23,90 @@ function component() {
       completed: false,
     },
   ];
-  const ul = document.getElementById('list');
+  const todoInput = document.querySelector('.todo-input');
+  const todoButton = document.querySelector('.todo-button');
+  const todoList = document.querySelector('.todoList');
 
-  let task = '';
+  document.addEventListener('DOMContentLoaded', getTodos);
+  todoButton.addEventListener('click', addTodo);
+  todoList.addEventListener('click', deleteCheck);
 
-  if (data.length === 0) {
-    document.querySelector('#task').innerHTML = '<p>No Record Found</p>';
+  function addTodo(event) {
+    event.preventDefault();
+    const newTodo = document.createElement('li');
+    newTodo.classList.add('task');
+    const completedCheck = document.createElement('INPUT');
+    completedCheck.setAttribute('type', 'checkbox');
+    completedCheck.classList.add('check');
+    newTodo.appendChild(completedCheck);
+    saveLocalTodos({
+      description: todoInput.value,
+      index: 0,
+      completed: false,
+    });
+    const textDescription = document.createElement('INPUT');
+    textDescription.setAttribute('type', 'text');
+    textDescription.setAttribute('value', todoInput.value);
+    newTodo.appendChild(textDescription);
+    const moveButton = document.createElement('button');
+    moveButton.innerHTML = '<i class="fas fa-ellipsis-v"></i>';
+    newTodo.appendChild(moveButton);
+    todoList.appendChild(newTodo);
+    todoInput.value = '';
   }
-  data.map((e) => {
-    task += `<li class="task"><input type="checkbox" id="task-${e.index}" />
-          <input type="text" value="${e.description}" />
-          <span>
-            <i class="fas fa-ellipsis-v"></i>
-          </span></li>`;
-    return task;
-  });
-  ul.innerHTML = task;
+
+  function deleteCheck(e) {
+    const item = e.target;
+    if (item.classList[0] === 'trash-btn') {
+      const todo = item.parentElement;
+      todo.remove();
+    }
+
+    if (item.classList[0] === 'check') {
+      const todo = item.parentElement;
+      const checkbox = todo.querySelector('input');
+      statusUpdate(checkbox.id);
+      todo.classList.toggle('completed');
+    }
+  }
+
+  function saveLocalTodos(todo) {
+    if (localStorage.getItem('todos') === null) {
+      todos = [];
+    } else {
+      todos = JSON.parse(localStorage.getItem('todos'));
+    }
+    todos.push(todo);
+    localStorage.setItem('todos', JSON.stringify(todos));
+  }
+
+  function getTodos() {
+    if (localStorage.getItem('todos') === null) {
+      localStorage.setItem('todos', JSON.stringify(todos));
+    } else {
+      todos = JSON.parse(localStorage.getItem('todos'));
+    }
+    todos.map((todo, i) => {
+      const newTodo = document.createElement('li');
+      newTodo.classList.add('task');
+      if (todo.completed === true) newTodo.classList.add('completed');
+      const completedCheck = document.createElement('INPUT');
+      completedCheck.setAttribute('type', 'checkbox');
+      completedCheck.setAttribute('id', todo.index);
+      if (todo.completed === true) completedCheck.setAttribute('checked', true);
+      completedCheck.classList.add('check');
+      newTodo.appendChild(completedCheck);
+      const textDescription = document.createElement('INPUT');
+      textDescription.setAttribute('type', 'text');
+      textDescription.setAttribute('value', todo.description);
+      newTodo.appendChild(textDescription);
+      const moveButton = document.createElement('button');
+      moveButton.innerHTML = '<i class="fas fa-ellipsis-v"></i>';
+      newTodo.appendChild(moveButton);
+      todoList.appendChild(newTodo);
+      todoInput.value = '';
+    });
+  }
 }
 
 document.body.appendChild(component());
