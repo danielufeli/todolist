@@ -6,26 +6,11 @@ import '@fortawesome/fontawesome-free/js/brands.js';
 import statusUpdate from './updateTodos.js';
 
 function component() {
-  let todos = [
-    {
-      index: 1,
-      description: 'Buy a Laptop',
-      completed: false,
-    },
-    {
-      index: 2,
-      description: 'Attend AOT LAgos Event',
-      completed: false,
-    },
-    {
-      index: 3,
-      description: 'Work on Javascript',
-      completed: false,
-    },
-  ];
+  let todos = [];
   const todoInput = document.querySelector('.todo-input');
   const todoButton = document.querySelector('.todo-button');
   const todoList = document.querySelector('.todoList');
+  const taskDes = document.querySelector('.task-des');
 
   function saveLocalTodos(todo) {
     if (localStorage.getItem('todos') === null) {
@@ -53,6 +38,7 @@ function component() {
     const textDescription = document.createElement('INPUT');
     textDescription.setAttribute('type', 'text');
     textDescription.setAttribute('value', todoInput.value);
+    textDescription.classList.add('task-des');
     newTodo.appendChild(textDescription);
     const moveButton = document.createElement('button');
     moveButton.innerHTML = '<i class="fas fa-ellipsis-v"></i>';
@@ -73,6 +59,11 @@ function component() {
       const checkbox = todo.querySelector('input');
       statusUpdate(checkbox.id);
       todo.classList.toggle('completed');
+    }
+
+    if (item.classList[0] === 'task-des') {
+      
+      console.log(e.target.value);
     }
   }
 
@@ -95,6 +86,7 @@ function component() {
       const textDescription = document.createElement('INPUT');
       textDescription.setAttribute('type', 'text');
       textDescription.setAttribute('value', todo.description);
+      textDescription.classList.add('task-des');
       newTodo.appendChild(textDescription);
       const moveButton = document.createElement('button');
       moveButton.innerHTML = '<i class="fas fa-ellipsis-v"></i>';
@@ -107,7 +99,7 @@ function component() {
 
   document.addEventListener('DOMContentLoaded', getTodos);
   todoButton.addEventListener('click', addTodo);
-  todoList.addEventListener('click', deleteCheck);
+  todoList.addEventListener('change', deleteCheck);
 }
 
 document.body.appendChild(component());
