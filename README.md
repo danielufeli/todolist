@@ -20,9 +20,9 @@ To get a local copy up and running follow these simple example steps:
 
 - Select the link with the code on the https code tab in the repo.
 - Open a Terminal and write the command: git clone "git@github.com:danielufeli/todolist.git".
-- run the following commands in your terminal:
-- npm install
-- npm start
+- cd into todolist folder
+- run npm install
+- run npm start
 
 ## Authors
 
