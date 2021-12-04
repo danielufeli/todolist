@@ -112,3 +112,15 @@ body {
   text-decoration: line-through;
   opacity: 0.5;
 }
+
+.trash-btn {
+  background: transparent;
+  border: none;
+  height: 45px;
+  cursor: pointer;
+}
+
+.fa-trash-alt,
+.fa-check {
+  pointer-events: none;
+}
