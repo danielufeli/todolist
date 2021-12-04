@@ -9,7 +9,6 @@ import updateTask from './updateTask.js';
 function component() {
   let todos = [];
   const todoInput = document.querySelector('.todo-input');
-  const todoButton = document.querySelector('.todo-button');
   const todoList = document.querySelector('.todoList');
 
   function saveLocalTodos(todo) {
@@ -108,7 +107,7 @@ function component() {
   }
 
   document.addEventListener('DOMContentLoaded', getTodos);
-  todoButton.addEventListener('click', addTodo);
+  todoInput.addEventListener('change', addTodo);
   todoList.addEventListener('click', deleteCheck);
   todoList.addEventListener('change', updateTaskCall);
 
